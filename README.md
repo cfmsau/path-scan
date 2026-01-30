@@ -2,7 +2,6 @@
 
 ![Build Status](https://github.com/cfmsau/path-scan/actions/workflows/discord.yml/badge.svg)
 ![Downloads](https://img.shields.io/github/downloads/cfmsau/path-scan/total?color=blueviolet)
-![Visitors](https://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2Fcfmsau%2Fpath-scan.json%3Fcolor%3D263124)
 ![Platform](https://img.shields.io/badge/platform-linux-lightgrey)
 ![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen)
 [![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/cfmsau/path-scan/blob/main/LICENSE)
