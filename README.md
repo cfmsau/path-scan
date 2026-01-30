@@ -138,14 +138,9 @@ Or use server1-list to show all the available libraries on the server:
 <pre>server1-list</pre>
 
 ---
+<h2><b>📸 Screenshot </b></h2>
 
-<h2><b>📸 Screenshots</b></h2>
-
-### **Library Scan in Progress**
-{INSERT UPDATED SCREENSHOTS}
-
-### **Detected Library List**
-{INSERT UPDATED SCREENSHOTS}
+![Path-Scan Demo](images/terminal-demo.png)
 
 ---
 
