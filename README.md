@@ -1,11 +1,11 @@
-<h1><b> PLEX-CTRL v1.0.0</b></h1>
+<h1><b> PATH-SCAN v1.0.0</b></h1>
 
-![Build Status](https://github.com/cfmsau/plex-ctrl/actions/workflows/discord.yml/badge.svg)
-![Downloads](https://img.shields.io/github/downloads/cfmsau/plex-ctrl/total?color=blueviolet)
-![Visitors](https://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2Fcfmsau%2Fplex-ctrl.json%3Fcolor%3D263124)
+![Build Status](https://github.com/cfmsau/path-scan/actions/workflows/discord.yml/badge.svg)
+![Downloads](https://img.shields.io/github/downloads/cfmsau/path-scan/total?color=blueviolet)
+![Visitors](https://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2Fcfmsau%2Fpath-scan.json%3Fcolor%3D263124)
 ![Platform](https://img.shields.io/badge/platform-linux-lightgrey)
 ![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen)
-[![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/cfmsau/plex-ctrl/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/cfmsau/path-scan/blob/main/LICENSE)
 ![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
 [![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-F16061?logo=ko-fi&logoColor=white)](https://ko-fi.com/cloudfusion)
 
@@ -25,8 +25,8 @@ Tested on Debian, Ubuntu & other Linux distros.
 
 1. **Clone the repository:**
 <pre>
-git clone https://github.com/cfmsau/plex-ctrl.git
-cd plex-ctrl
+git clone https://github.com/cfmsau/path-scan.git
+cd path-scan
 </pre>
 
 2. **Create a Virtual Environment (Recommended):**
@@ -46,7 +46,7 @@ pip install requests
 
 4. **Make executable:**
 <pre>
-chmod +x plex-ctrl.py
+chmod +x path-scan.py
 </pre>
 
 ---
@@ -62,7 +62,7 @@ chmod +x plex-ctrl.py
 - **Auto-Detection:** Finds Library IDs by matching file paths.
 - **Colorized Output:** Visual feedback for Movies (Blue), Shows (Yellow), and Success (Green).
 - **VENV Compatible:** Prevents "Externally Managed Environment" errors.
-- **Logging:** All actions recorded in plex_tool.log.
+- **Logging:** All actions recorded in a log.
 
 ---
 
@@ -72,78 +72,80 @@ chmod +x plex-ctrl.py
 
 1. **LIST LIBRARIES:**
 <pre>
-./plex-ctrl.py list "YOUR_URL" "YOUR_TOKEN"
+./path-scan.py list "YOUR_URL" "YOUR_TOKEN"
 </pre>
 
 2. **SCAN A FOLDER:**
 <pre>
-./plex-ctrl.py scan "YOUR_URL" "YOUR_TOKEN" "/path/to/media"
+./path-scan.py scan "YOUR_URL" "YOUR_TOKEN" "/path/to/media"
 </pre>
 
 3. **DRY RUN (TESTING):**
 <pre>
-./plex-ctrl.py scan "YOUR_URL" "YOUR_TOKEN" "/path/to/media" --dry-run
+./path-scan.py scan "YOUR_URL" "YOUR_TOKEN" "/path/to/media" --dry-run
 </pre>
 
 ---
 
 <h2><b>⚡ SPEED TIP: CREATE A BASH FUNCTION (Bash Alias)</b></h2>
 
-To avoid typing your Plex URL and Token every time, you can add functions to your `~/.bashrc`. This allows you to simply type `plex-scan` (followed by the path) or `plex-list` to list all the libraries of the saved server.
+To avoid typing your Plex URL and Token every time, you can add functions to your `~/.bashrc`. This allows you to simply type `server1-scan` (followed by the path) or `server1-list` to list all the libraries of the saved server.
 
 **1. Open your bash configuration:**
 <pre>nano ~/.bashrc</pre>
 
 **2. Add these function to the bottom of the file:**
 <pre>
-plex-scan() {
+server1-scan() {
     if [ -z "$1" ]; then
-        echo "Usage: plex-scan '/mnt/media_alpha/movies/Movie Name (Year)'"
+        echo "Usage: server1-scan '/some/media/mount/movies/Movie Name (Year)'"
         return 1
     fi
 
     # --- CONFIGURATION ---
     local PLEX_URL="http://IP_ADDRESS:32400"
     local PLEX_TOKEN="YOUR_PLEX_TOKEN_HERE"
-    local REPO_DIR="YOUR_PLEX-CTRL_DIR"
+    local REPO_DIR="YOUR_PATH-SCAN_DIR"
     # ---------------------
 
-    local SCRIPT_PATH="$REPO_DIR/plex-ctrl.py"
+    local SCRIPT_PATH="$REPO_DIR/path-scan.py"
     local VENV_PYTHON="$REPO_DIR/venv/bin/python3"
 
     $VENV_PYTHON "$SCRIPT_PATH" scan "$PLEX_URL" "$PLEX_TOKEN" "$1" "${@:2}"
 }
-plex-list() {
+server1-list() {
     local PLEX_URL="http://IP_ADDRESS:32400"
     local PLEX_TOKEN="YOUR_PLEX_TOKEN_HERE"
-    local REPO_DIR="YOUR_PLEX-CTRL_DIR"
+    local REPO_DIR="YOUR_PATH-SCAN_DIR"
 
     $REPO_DIR/venv/bin/python3 $REPO_DIR/plex-ctrl.py list "$PLEX_URL" "$PLEX_TOKEN"
-    #Usage: plex-list
+    #Usage: server1-list
 }
 
 </pre>
 
-NOTE: plex-scan and plex-list can be called anything. They can be server specific. You can make as many aliases as you want.
+NOTE: server1-scan and server1-list can be called anything. They can be server specific. You can make as many aliases as you want.
 Also insert your correct values above for PLEX_URL, PLEX_TOKEN and REPO_DIR (install DIR).
 
 **3. Reload your profile:**
 <pre>source ~/.bashrc</pre>
 
 **4. Usage:**
-Now you can scan any folder with a simple command:
-<pre>plex-scan "/mnt/media_alpha/movies/The Matrix (1999)"</pre>
+Now you can scan any folder with a simple command. Below is an example:
+<pre>server1-scan "/mnt/media/movies/The Matrix (1999)"</pre>
 
-Or use plex-list to show all the available libraries on the server:
-<pre>plex-list</pre>
+Or use server1-list to show all the available libraries on the server:
+<pre>server1-list</pre>
 
 ---
 
 <h2><b>📸 Screenshots</b></h2>
 
-![Plex Scan](images/plex-scan.jpg)
+### **Library Scan in Progress**
+{INSERT UPDATED SCREENSHOTS}
 
-![Plex List](images/plex-list.jpg)
+### **Detected Library List**
+{INSERT UPDATED SCREENSHOTS}
 
 ---
 
