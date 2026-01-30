@@ -16,8 +16,8 @@ Its main purpose, however, is to **perform partial library scans of folders.**
 Looking to scan a single TV show rather than a whole TV library? **USE THIS TOOL.**
 
 Linux release only so far.  
-Tested on Debian, Ubuntu & other Linux distros.  
-**Just install Python and you're ready to use it!**
+Tested on Debian, Ubuntu & other Linux distros.    
+**Just install Python and you're ready to use it!**  
 
 ---
 
