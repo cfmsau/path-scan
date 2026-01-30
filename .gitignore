@@ -1,0 +1,11 @@
+# Ignore log files
+*.log
+plex_tool.log
+
+# Ignore Virtual Environment
+venv/
+__pycache__/
+.env
+
+# Ignore OS metadata
+.DS_Store

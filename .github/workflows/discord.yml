@@ -1,0 +1,61 @@
+name: Discord Notify
+on: [push, release]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord push
+        if: github.event_name == 'push'
+        env:
+          MSG: ${{ github.event.head_commit.message }}
+          REPO: ${{ github.repository }}
+        run: |
+          jq -n \
+            --arg title "🆕 New push to ${{ github.ref_name }}" \
+            --arg repo "$REPO" \
+            --arg msg "$MSG" \
+            --arg url "${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}" \
+            --arg thumb "https://github.com/${{ github.repository_owner }}.png" \
+            --arg footer "Pushed by CloudFusion Media Systems" \
+            --arg ts "${{ github.event.head_commit.timestamp }}" \
+            '{
+              embeds: [{
+                title: $title,
+                description: ("**" + $repo + "**\n\n" + $msg),
+                url: $url,
+                color: 3066993,
+                thumbnail: { url: $thumb },
+                footer: { text: $footer },
+                timestamp: $ts
+              }]
+            }' > payload.json
+
+          curl -X POST -H "Content-Type: application/json" -d @payload.json "${{ secrets.DISCORD_WEBHOOK }}"
+
+      - name: Discord release
+        if: github.event_name == 'release'
+        env:
+          BODY: ${{ github.event.release.body }}
+          REPO: ${{ github.repository }}
+        run: |
+          jq -n \
+            --arg title "🚀 ${{ github.event.release.tag_name }} released" \
+            --arg repo "$REPO" \
+            --arg body "$BODY" \
+            --arg url "${{ github.event.release.html_url }}" \
+            --arg thumb "https://github.com/${{ github.repository_owner }}.png" \
+            --arg footer "Released by CloudFusion Media Systems" \
+            --arg ts "${{ github.event.release.published_at }}" \
+            '{
+              embeds: [{
+                title: $title,
+                description: ("**" + $repo + "**\n\n" + $body),
+                url: $url,
+                color: 15844367,
+                thumbnail: { url: $thumb },
+                footer: { text: $footer },
+                timestamp: $ts
+              }]
+            }' > payload.json
+
+          curl -X POST -H "Content-Type: application/json" -d @payload.json "${{ secrets.DISCORD_WEBHOOK }}"
